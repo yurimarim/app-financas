@@ -4,3 +4,4 @@ Aplicativo de controle de finanças desenvolvido utilizando React Native
 ## Tecnologias Utilizadas
 • React Native
 • Expo
+• React Native Vector Icons
