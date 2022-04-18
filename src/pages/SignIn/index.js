@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
-import { Keyboard } from 'react-native'
+import React, { useState, useContext } from 'react'
+import { Keyboard, Platform } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 import {
   Background,
   Container,
@@ -11,48 +12,22 @@ import {
   Link,
   LinkText
 } from './styles'
-import firebase from '../../services/firebaseConnection'
+import { AuthContext } from '../../contexts/auth'
 
 export function SignIn() {
-  const [type, setType] = useState('login')
+  const navigation = useNavigation()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  async function handleSignUpOrLogin() {
-    if (type === 'login') {
-      await firebase
-        .auth()
-        .signInWithEmailAndPassword(email, password)
-        .then(value => {
-          alert(`Logado com sucesso! 🔥 ${value.user.email}`)
-        })
-        .catch(err => {
-          alert(`Ops... parece que algo estranho aconteceu! 😥 ${err}`)
-          return
-        })
-      setEmail('')
-      setPassword('')
-      Keyboard.dismiss()
-    } else {
-      await firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password)
-        .then(value => {
-          alert(`Usuário criado com sucesso! 😀 ${value.user.email}`)
-        })
-        .catch(err => {
-          alert(`Ops... parece que aconteceu algo inesperado! 😭 ${err}`)
-          return
-        })
-      setEmail('')
-      setPassword('')
-      Keyboard.dismiss()
-    }
+  const { signUp } = useContext(AuthContext)
+
+  function handleLogin() {
+    signUp()
   }
 
   return (
     <Background>
-      <Container>
+      <Container behavior={Platform.OS === 'ios' ? 'padding' : ''}>
         <Logo source={require('../../assets/Logo.png')} />
         <AreaInput>
           <Input
@@ -72,15 +47,13 @@ export function SignIn() {
           />
         </AreaInput>
 
-        <SubmitButton onPress={() => handleSignUpOrLogin()} type={type}>
-          <SubmitText>{type === 'login' ? 'LOGIN' : 'CADASTRAR'}</SubmitText>
+        <SubmitButton onPress={() => handleLogin()} type="login">
+          <SubmitText>LOGIN</SubmitText>
         </SubmitButton>
 
-        <Link onPress={() => setType(type === 'login' ? 'signUp' : 'login')}>
+        <Link onPress={() => navigation.navigate('SignUp')}>
           <LinkText>
-            {type === 'login'
-              ? 'Criar uma conta'
-              : 'Já possui uma conta? Faça Login'}
+            Não possui conta? Clique aqui para criar uma conta!
           </LinkText>
         </Link>
       </Container>
