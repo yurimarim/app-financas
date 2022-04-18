@@ -2,13 +2,13 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
 
-let firebaseConfig = {
-  apiKey: 'AIzaSyAK0EAjvICnZJ4b8CI0Ne3qMQIh4fL836A',
-  authDomain: 'app-financas-a5e96.firebaseapp.com',
-  projectId: 'app-financas-a5e96',
-  storageBucket: 'app-financas-a5e96.appspot.com',
-  messagingSenderId: '258875141050',
-  appId: '1:258875141050:web:63a1c5af72d8f488594b83'
+const firebaseConfig = {
+  apiKey: 'AIzaSyB_xEnEomzDO6GgpN3_4_J2PkdV5PzCdDo',
+  authDomain: 'financas-app-e9c2d.firebaseapp.com',
+  projectId: 'financas-app-e9c2d',
+  storageBucket: 'financas-app-e9c2d.appspot.com',
+  messagingSenderId: '582690718525',
+  appId: '1:582690718525:web:0213c4865c396770e6bb54'
 }
 
 if (!firebase.apps.length) {
