@@ -12,3 +12,5 @@ Aplicativo de controle de finanças desenvolvido utilizando React Native
 • Styled Components
 • React Native Safe Area Context
 • React Native Async Storage
+• React Native Gesture Handler
+• React Native Reanimated
