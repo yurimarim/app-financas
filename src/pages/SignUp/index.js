@@ -21,7 +21,7 @@ export function SignUp() {
 
   function handleSignUp() {
     signUp(email, password, name)
-    alert('deu certo!')
+    alert('Usuário criado com sucesso! 🚀🔥')
     Keyboard.dismiss()
   }
 
