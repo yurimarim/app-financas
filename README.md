@@ -11,3 +11,4 @@ Aplicativo de controle de finanças desenvolvido utilizando React Native
 • Firebase
 • Styled Components
 • React Native Safe Area Context
+• React Native Async Storage
