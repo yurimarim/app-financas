@@ -1,16 +1,48 @@
 // Logged Route
 // Auth Routes
 import React from 'react'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { createDrawerNavigator } from '@react-navigation/drawer'
 
 import { Home } from '../pages/Home'
+import { New } from '../pages/New'
+import { Profile } from '../pages/Profile'
 
-const AppStack = createNativeStackNavigator()
+const AppDrawer = createDrawerNavigator()
 
 export function AppRoutes() {
   return (
-    <AppStack.Navigator>
-      <AppStack.Screen name="Home" component={Home} />
-    </AppStack.Navigator>
+    <AppDrawer.Navigator
+      screenOptions={{
+        drawerStyle: {
+          backgroundColor: '#171717'
+        },
+        drawerLabelStyle: { fontWeight: 'bold' },
+        drawerActiveTintColor: '#fff',
+        drawerActiveBackgroundColor: '#00b94a',
+        drawerInactiveBackgroundColor: '#000',
+        drawerInactiveTintColor: '#ddd',
+        drawerItemStyle: {
+          marginVertical: 5
+        }
+      }}
+    >
+      <AppDrawer.Screen
+        name="Home"
+        component={Home}
+        options={{ headerShown: false }}
+      />
+
+      <AppDrawer.Screen
+        name="Registrar"
+        component={New}
+        options={{ headerShown: false }}
+      />
+
+      <AppDrawer.Screen
+        name="Perfil"
+        component={Profile}
+        options={{ headerShown: false }}
+      />
+    </AppDrawer.Navigator>
   )
 }
