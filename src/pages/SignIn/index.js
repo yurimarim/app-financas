@@ -19,10 +19,11 @@ export function SignIn() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const { signUp } = useContext(AuthContext)
+  const { signIn } = useContext(AuthContext)
 
   function handleLogin() {
-    signUp()
+    signIn(email, password)
+    Keyboard.dismiss()
   }
 
   return (
