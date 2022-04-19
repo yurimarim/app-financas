@@ -24,7 +24,17 @@ export const Balance = styled.Text`
 `
 
 export const Title = styled.Text`
-  color: #fff;
+  color: #00b94a;
   margin-left: 15px;
   margin-bottom: 10px;
+`
+
+export const List = styled.FlatList.attrs({
+  marginHorizontal: 15
+})`
+  padding-top: 15px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  margin: 0 8px;
+  background-color: #fff;
 `
