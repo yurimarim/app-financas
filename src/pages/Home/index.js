@@ -1,16 +1,20 @@
 import React, { useContext } from 'react'
-import { View, Text, Button } from 'react-native'
+import { Background, Container, Name, Balance, Title } from './styles'
+import { Header } from '../../components/Header'
 import { AuthContext } from '../../contexts/auth'
 
 export function Home() {
-  const { user, signOut } = useContext(AuthContext)
+  const { user } = useContext(AuthContext)
 
   return (
-    <View>
-      <Text>Home</Text>
-      <Text>{user && user.name}</Text>
-      <Text>{user && user.email}</Text>
-      <Button title="Sair da conta" onPress={() => signOut()} />
-    </View>
+    <Background>
+      <Header />
+      <Container>
+        <Name>{user && user.name}</Name>
+        <Balance>R$1.290,31</Balance>
+      </Container>
+
+      <Title>Últimas movimentações</Title>
+    </Background>
   )
 }
