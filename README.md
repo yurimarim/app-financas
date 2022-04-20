@@ -14,3 +14,4 @@ Aplicativo de controle de finanças desenvolvido utilizando React Native
 • React Native Async Storage
 • React Native Gesture Handler
 • React Native Reanimated
+• React Native Picker
