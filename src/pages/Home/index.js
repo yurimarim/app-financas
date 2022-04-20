@@ -1,29 +1,59 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Background, Container, Name, Balance, Title, List } from './styles'
 import { Header } from '../../components/Header'
 import { HistoricList } from '../../components/HistoricList'
 import { AuthContext } from '../../contexts/auth'
+import { format } from 'date-fns'
+import firebase from '../../services/firebaseConnection'
 
 export function Home() {
+  const [historic, setHistoric] = useState([])
+  const [balance, setBalance] = useState(0)
   const { user } = useContext(AuthContext)
-  const [historic, setHistoric] = useState([
-    { key: '1', type: 'Receita', value: 1200.03 },
-    { key: '2', type: 'Despesa', value: 682.35 },
-    { key: '3', type: 'Despesa', value: 200.02 },
-    { key: '4', type: 'Receita', value: 1000.0 },
-    { key: '5', type: 'Receita', value: 342.85 },
-    { key: '6', type: 'Despesa', value: 744.1 },
-    { key: '7', type: 'Receita', value: 100.5 },
-    { key: '8', type: 'Receita', value: 310.1 },
-    { key: '9', type: 'Despesa', value: 332.58 }
-  ])
+  const uid = user && user.uid
+
+  useEffect(() => {
+    async function loadList() {
+      await firebase
+        .database()
+        .ref('users')
+        .child(uid)
+        .on('value', snapshot => {
+          setBalance(snapshot.val().balance)
+        })
+
+      await firebase
+        .database()
+        .ref('historic')
+        .child(uid)
+        .orderByChild('date')
+        .equalTo(format(new Date(), 'dd/MM/yyyy'))
+        .limitToLast(10)
+        .on('value', snapshot => {
+          setHistoric([])
+          snapshot.forEach(childItem => {
+            let list = {
+              key: childItem.key,
+              type: childItem.val().type,
+              value: childItem.val().value
+            }
+
+            setHistoric(oldArray => [...oldArray, list])
+          })
+        })
+    }
+
+    loadList()
+  }, [])
 
   return (
     <Background>
       <Header />
       <Container>
         <Name>{user && user.name}</Name>
-        <Balance>R$1.290,31</Balance>
+        <Balance>
+          R${balance.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')}
+        </Balance>
       </Container>
 
       <Title>Últimas movimentações</Title>
