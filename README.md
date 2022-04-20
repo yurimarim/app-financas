@@ -15,3 +15,4 @@ Aplicativo de controle de finanças desenvolvido utilizando React Native
 • React Native Gesture Handler
 • React Native Reanimated
 • React Native Picker
+• Date FNS
