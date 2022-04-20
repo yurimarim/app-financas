@@ -12,7 +12,7 @@ export const Type = styled.View`
 export const IconView = styled.View`
   flex-direction: row;
   background-color: ${props =>
-    props.type === 'Despesa' ? '#c62c36' : '#049301'};
+    props.type === 'despesa' ? '#c62c36' : '#049301'};
   padding: 3px 8px;
   border-radius: 7px;
 `

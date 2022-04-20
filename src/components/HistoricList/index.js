@@ -8,7 +8,7 @@ export function HistoricList({ data }) {
       <Type>
         <IconView type={data.type}>
           <Feather
-            name={data.type === 'Despesa' ? 'arrow-down' : 'arrow-up'}
+            name={data.type === 'despesa' ? 'arrow-down' : 'arrow-up'}
             size={20}
             color="#fff"
           />
