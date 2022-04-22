@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { Platform, Keyboard } from 'react-native'
+import { Platform, Keyboard, ActivityIndicator } from 'react-native'
 
 import { AuthContext } from '../../contexts/auth'
 
@@ -17,11 +17,10 @@ export function SignUp() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const { signUp } = useContext(AuthContext)
+  const { signUp, loadingAuth } = useContext(AuthContext)
 
   function handleSignUp() {
     signUp(email, password, name)
-    alert('Usuário criado com sucesso! 🚀🔥')
     Keyboard.dismiss()
   }
 
@@ -60,7 +59,11 @@ export function SignUp() {
         </AreaInput>
 
         <SubmitButton onPress={handleSignUp}>
-          <SubmitText>CADASTRAR</SubmitText>
+          {loadingAuth ? (
+            <ActivityIndicator size={20} color="#fff" />
+          ) : (
+            <SubmitText>CADASTRAR</SubmitText>
+          )}
         </SubmitButton>
       </Container>
     </Background>
