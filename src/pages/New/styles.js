@@ -21,6 +21,7 @@ export const SubmitButton = styled.TouchableOpacity`
   margin-top: 20px;
   align-items: center;
   justify-content: center;
+  border-radius: 10px;
   background-color: #00b94a;
 `
 
