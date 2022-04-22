@@ -7,6 +7,7 @@ export const AuthContext = createContext({})
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [loadingAuth, setLoadingAuth] = useState(false)
 
   useEffect(() => {
     async function loadStorage() {
@@ -25,6 +26,7 @@ export function AuthProvider({ children }) {
 
   // Sign In user
   async function signIn(email, password) {
+    setLoadingAuth(true)
     await firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
@@ -43,15 +45,18 @@ export function AuthProvider({ children }) {
             }
             setUser(data)
             storageUser(data)
+            setLoadingAuth(false)
           })
       })
       .catch(err => {
         alert(`Error: ${err.code}`)
+        setLoadingAuth(false)
       })
   }
 
   // Sign Up user
   async function signUp(email, password, name) {
+    setLoadingAuth(true)
     await firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
@@ -73,6 +78,11 @@ export function AuthProvider({ children }) {
             }
             setUser(data)
             storageUser(data)
+            setLoadingAuth(false)
+          })
+          .catch(err => {
+            alert(err)
+            setLoadingAuth(false)
           })
       })
   }
@@ -90,7 +100,15 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ signed: !!user, user, loading, signUp, signIn, signOut }}
+      value={{
+        signed: !!user,
+        user,
+        loading,
+        loadingAuth,
+        signUp,
+        signIn,
+        signOut
+      }}
     >
       {children}
     </AuthContext.Provider>
